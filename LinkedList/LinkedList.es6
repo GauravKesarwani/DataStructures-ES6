@@ -9,28 +9,19 @@ class Node {
 }
 
 class LinkedList {
-  constructor() {
-    this.first = new Node("av");
-    this.second = new Node("c");
-    this.third = new Node("d");
-    this.fourth = new Node("c");
-    this.fifth = new Node("ba");
-    this.first._next = this.second;
-    this.second._next = this.third;
-    this.third._next = this.fourth;
-    this.fourth._next = this.fifth;
-    this._head = this.first;
+  constructor(head) {
+    this._head = head;
   };
 
   /* Print a new Link List */
   printList() {
     console.log('....printing list....');
 
-    let n = this._head;
-    console.log('value of n is ', n);
-    while (n != null) {
-      console.log(n._data);
-      n = n._next;
+    let current = this._head;
+    console.log('value of n is ', current);
+    while (current !== null) {
+      console.log(current._data);
+      current = current._next;
     }
   };
 
@@ -183,7 +174,205 @@ class LinkedList {
     return this.checkIfPallindrome(dataString);
 
   }
-}
-let linkedList = new LinkedList();
+
+  isLengthEvenOrOdd() {
+    let current = this._head,
+      count = 0;
+    while(current !== null) {
+      count++;
+      current = current._next;
+    }
+    if (count % 2 === 0) {
+      console.log('Length is even');
+    }
+    else {
+      console.log('Length is odd');
+    }
+  }
+
+  mergeTwoLinkList(head1, head2) {
+    let current1 = head1.next,
+      current2 = head2,
+      head3 = null;
+    
+    //determine the head and instantiate a new List
+    if (head1._data <= head2._data) {
+      head3 = head1
+    }
+    else {
+      head3 = head2;
+    }
   
-console.log(linkedList.isLinkListPallindrome());
+    while(current1 !== null && current2 !== null) {
+      if (current1._data <= current2._data) {
+        current3._data = current1._data;
+        current3._next = null;
+        current1 = current1._next;
+      }
+
+    }
+  }
+
+  // In O(n) time
+  removeDuplicates() {
+    let current = this._head,
+      duplicateSet = new Set();
+
+    while(current !== null) {
+      if (!duplicateSet.has(current._data)) {
+        duplicateSet.add(current._data);
+      }
+      else {
+        current._data = current._next._data;
+        current._next = current._next._next;
+      }
+       current = current._next;
+    }  
+  }
+
+  // If we know the length of LinkList then kth to last element is n - k + 1 from the beginning of the array
+  // O(n) time... Iterative
+  kthToLastElement(n, k) {
+    let current = this._head;
+
+    for (let i = 0; i < n - k + 1; i++) {
+      current = current._next;
+    }
+
+    console.log(current._data);
+  }
+
+  // Recursive Solution
+  kthToLastElementRecursive(node, k) {
+    // base case
+    if (node === null) {
+      return 0;
+    }
+    else {
+      let counter = 1 + this.kthToLastElementRecursive(node._next, k);
+      if (counter === k) {
+        console.log(node._data);
+      }
+      return counter;
+    }
+  }
+
+  // Problem 58:  Karumanchi. Digits are in reverse order
+  addTwoNumbers(linkedList1, linkedList2) {
+
+    // add the edge cases
+
+    if (linkedList1 === null) {
+      return linkedList2;
+    }
+
+    if (linkedList2 === null) {
+      return linkedList1;
+    }
+
+    let current1 = linkedList1._head,
+      current2 = linkedList2._head,
+      linkedList = new LinkedList();
+
+
+    let sum = 0,
+      carry = 0;
+    while(current1 !== null || current2 !== null) {
+      if (current1 && current2) {
+        sum = current1._data + current2._data + carry;
+      }
+      else if (current1 && !current2) {
+        sum = current1._data + carry;
+      }
+      else {
+        sum = current2._data + carry;
+      }
+
+      carry= Math.floor(sum/10);
+      sum%=10;
+
+      
+
+      linkedList.insertAtEnd(sum);
+      current1= current1._next;
+      current2 = current2._next;
+    }  
+
+    if (carry !== 0) {
+      linkedList.insertAtEnd(carry);
+    }
+
+    return linkedList;
+  }
+
+  exchangeAdjacentNodes() {
+    let current = this._head;
+
+    if (current === null) {
+      return;
+    }
+    while(current!== null && current._next !== null) {
+      let temp = current._data;
+      current._data = current._next._data;
+      current._next._data = temp;
+      current = current._next._next;
+    }
+  }
+
+  // partition a Link List using element k.
+  partitionLinkList(k) {
+    let current = this._head;
+    // create two Link Lists
+
+    let linkList1 = new LinkedList(null);
+    let linkList2 = new LinkedList(null);
+
+    while(current !== null) {
+      if (current._data <k) {
+        linkList1.insertAtEnd(current._data);
+      }
+      else {
+        linkList2.insertAtEnd(current._data);
+      }
+      current = current._next;
+    }
+
+    current = linkList1._head;
+    while(current._next !== null) {
+      current = current._next;
+    }
+
+    current._next = linkList2._head;
+    return linkList1;
+  }
+
+  
+}
+
+const first1 = new Node(3);
+const second1 = new Node(5);
+const third1 = new Node(8);
+const fourth1 = new Node(5);
+const fifth1 = new Node(10);
+const sixth1 = new Node(2);
+const seventh1 = new Node(1);
+
+first1._next = second1;
+second1._next = third1;
+third1._next = fourth1;
+fourth1._next = fifth1;
+fifth1._next = sixth1;
+sixth1._next = seventh1;
+
+
+
+const head1 = first1;
+
+let linkedList1 = new LinkedList(head1);
+
+
+linkedList1.printList();
+
+let ll = linkedList1.partitionLinkList(5);
+ll.printList();
+

@@ -4,7 +4,7 @@
 class Fibonacci {
 	constructor(n) {
 		this.fibSeries = new Array(n);
-	},
+	}
 
 	// calculate the fibonacci of a number using bottom up approach.
 	calculateFibonacciBottomUp(n) {
@@ -16,7 +16,7 @@ class Fibonacci {
 		}
 
 		return fibSeries[n-1];
-	},
+	}
 
 	calculateFibonacciTopDown(n) {
 		if (n <= 0) {
@@ -32,7 +32,7 @@ class Fibonacci {
 
 		this.fibSeries[n-1] = this.calculateFibonacciTopDown(n-2) + this.calculateFibonacciTopDown(n-3);
 		return this.fibSeries[n-1];
- 	},
+ 	}
 
  	maximumValueContinuousSequence(arr) {
  		
