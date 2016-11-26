@@ -44,8 +44,64 @@ class SortingAlgos {
 		}
 		return left;
 	}
+
+	// If you have sorted the array then complexity should be O(nlogn) & not O(n^2)
+	whoWinsElection(arr) {
+		let i = 0,
+			len = arr.length,
+			counter = 0,
+			winner = { };
+			winner.maxVotes = Number.MIN_VALUE;
+
+
+		arr.sort(function(a,b) {
+			return a - b;
+		});	
+		console.log(arr);
+		while(i < len) {
+			let j = i,
+			  counter = 0;
+			while (j < len && arr[j] === arr[i]) {
+				counter++;
+				if (counter > winner.maxVotes) {
+					winner.maxVotes = counter;
+					winner.id = arr[j];
+				}
+				j++;
+			}
+			i = j;
+		}
+
+		return winner;
+	}
+
+	whoWinsElectionSingleLoop(arr) {
+		let len = arr.length,
+		  currentCandidate = arr[0],
+		  maxCandidate = arr[0],
+		  currentCounter = Number.MIN_VALUE,
+		  maxCounter = 1;
+
+		 arr.sort();
+		 for (let i = 0; i < len; i++) {
+		 	 if (arr[i] === currentCandidate) {
+		 	 	 currentCounter++;
+		 	 } else {
+		 	 	currentCandidate = arr[i];
+		 	 	currentCounter = 0;
+		 	 }
+
+		 	 if (currentCounter > maxCounter) {
+		 	 	maxCounter = currentCounter;
+		 	 	maxCandidate = currentCandidate;
+		 	 }
+		 }
+
+		return maxCandidate; 
+	}
 }
 
-let testInput = [ 12, 15, 10, 11, 8, 7, 19];
+let testInput = [ 12, 12, 12, 11, 12, 7, 9, 10, 11, 12, 9, 8, 9];
 
-new SortingAlgos().recursiveQuickSort(testInput, 0, testInput.length - 1);
+let winner = new SortingAlgos().whoWinsElectionSingleLoop(testInput);
+console.log(winner);

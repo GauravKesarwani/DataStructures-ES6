@@ -137,6 +137,42 @@ class StringAlgorithms {
     arr[n-1] = 1;
     this.generateAllNBitStrings(n-1);
   }
+
+  sparseSearch(str, arr, l, r) {
+    let mid = (l + r) / 2;
+    if (arr[mid] !== "") {
+      if (str.localCompare(arr[mid] === 0)) {
+        return mid;
+      }
+      if (str.localCompare(arr[mid]) > 0) {
+        this.sparseSearch(str, arr, mid + 1, r);
+      }
+      else {
+        this.sparseSearch(str, arr, 0, mid - 1);
+      }
+    }
+    else {
+      let leftptr = mid - 1,
+        rightptr = mid + 1;
+
+      while(arr[leftptr] === "" && rightptr === "") {
+        leftptr--;
+        rightptr++;
+      }
+      if (leftptr !== "") {
+        mid = leftptr;
+      else  if (rightptr !== "") {
+        mid = rightptr;
+      }
+    }
+
+    if (str.localCompare(arr[mid]) > 0) {
+      this.sparseSearch(str, arr, mid + 1, r);
+    }
+    else {
+      this.sparseSearch(str, arr, 0, mid - 1);
+    }
+  }
 }
 
 

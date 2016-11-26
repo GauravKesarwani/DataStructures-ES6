@@ -1,6 +1,12 @@
 /**
  *
- * Heap Representation
+  A heap is represented as array in JavaScript.
+  1. Heap property: Value of a node must be > or < than the value of its children.
+  2. All the leaves should be at h or h - 1 levels.
+
+  Operations: heapify
+
+ * Heap Representation, capacity, heapType, count of nodes.
  *
  * Time Complexity: O(N log N)
  * @param {Array} array
@@ -8,8 +14,7 @@
  */
 
 
-class HeapSort {
-
+class Heap {
   constructor(heapCapacity, heapType) {
     this._heapArray = new Array(heapCapacity);
     this._heapType = heapType;      // max-heap or min-heap

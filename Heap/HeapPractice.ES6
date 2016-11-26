@@ -1,88 +1,137 @@
 'use strict';
 
 /*
-	A heap is represented as array in JavaScript.
-	1. Heap property: Value of a node must be > or < than the value of its children.
-	2. All the leaves should be at h or h - 1 levels.
+  A heap is represented as array in JavaScript.
+  1. Heap property: Value of a node must be > or < than the value of its children.
+  2. All the leaves should be at h or h - 1 levels.
 
-	Operations: heapify
+  Operations: heapify
 */
 
 class Heap {
-	constructor(capacity, heapType) {
-		this._heapArray = new Array(capacity);
-		this._count = 0;
-		this._heapType = heapType;
-	}
+  constructor(capacity, heapType) {
+    this._heapArray = new Array(capacity);
+    this._count = 0;
+    this._heapType = heapType;
+    this._capacity = capacity;
+  }
 
-	getParent(i) {
-		if (i <=0 || i >= this._count) {
-			return -1;
-		}
-		return (i-1)/2;
-	}
+  getParent(i) {
+    if (i <=0 || i >= this._count) {
+      return -1;
+    }
+    return (i-1)/2;
+  }
 
-	getLeftChild(i) {
-		const left = 2 * i + 1;
+  getLeftChild(i) {
+    const left = 2 * i + 1;
 
-		if (left >= this._count) {
-			return -1;
-		}
-		return left;
-	}
+    if (left >= this._count) {
+      return -1;
+    }
+    return left;
+  }
 
-	getRightChild(i) {
-		const right = 2 * i + 2;
+  getRightChild(i) {
+    const right = 2 * i + 2;
 
-		if (right >= this._count) {
-			return -1;
-		}
-		return right;
-	}
+    if (right >= this._count) {
+      return -1;
+    }
+    return right;
+  }
 
-	getMaxElement() {
-		if (this._count === 0) {
-			return -1;
-		}
-		return this.heapArray[0];
-	}
+  // assuming max heap implementation
+  getMaxElement() {
+    if (this._count === 0) {
+      return -1;
+    }
+    return this.heapArray[0];
+  }
 
-	// known as heapify or percolate down. Iterative.
-	// Todo: Write the recursive version of hepaify.
-	heapify(i) {
-		let leftChild,
-		  rightChild,
-		  largerChild;
 
-		let root = this._heapArray[i];  
-		while(i < this._count/2) {
-			leftChild = 2 * i + 1;
-			rightChild = 2 * i + 2;
 
-			if (rightChild < this._count && this._heapArray[leftChild] >= this._heapArray[rightChild]) {
-				largerChild = leftChild;
-			} 
-			else {
-				largerChild = rightChild;
-			}
+  // Iterative: heapify or percolate down.
+  // Todo: Write the recursive version of hepaify.
+  iterativeHeapify(i) {
+    let leftChild,
+      rightChild,
+      largerChild;
 
-			if (root > this._heapArray[largerChild]) {
-				break;
-			}
+    let root = this._heapArray[i];  
+    while(i < this._count/2) {
+      leftChild = 2 * i + 1;
+      rightChild = 2 * i + 2;
 
-			this._heapArray[i] = this._heapArray[largerChild];
-			i = largerChild;
-		}
+      if (rightChild < this._count && this._heapArray[leftChild] >= this._heapArray[rightChild]) {
+        largerChild = leftChild;
+      } 
+      else {
+        largerChild = rightChild;
+      }
 
-		this._heapArray[i] = root;
+      if (root > this._heapArray[largerChild]) {
+        break;
+      }
 
-	}
+      this._heapArray[i] = this._heapArray[largerChild];
+      i = largerChild;
+    }
 
-	printHeap() {
-		for (let i = 0; i < this._heapArray.length; i++) {
-			console.log(this._heapArray[i]);
-		}
-	}
+    this._heapArray[i] = root;
+
+  }
+
+  // Recursive heapify. Easier. Time complexity = O(logn)
+  recursiveHeapify(i) {
+    let largest = i,
+      leftChild = 2 * i + 1,
+      rightChild = 2 * i + 2;
+
+    if (leftChild < this._count && this._heapArray[leftChild] > largest) {
+      largest = leftChild;
+    }  
+
+    if (rightChild < this._count && this._heapArray[rightChild] > largest) {
+      largest = rightChild;
+    }
+    
+    if (i !== largest) {
+      swap(i, largest);
+
+      this.heapify(largest);
+    }
+  }
+
+  deleteElement() {
+    const data = this._heapArray[0];
+    this._heapArray[0] = this._heapArray[--this._count];
+    this.recursiveHeapify(0);
+    return data;
+  }
+
+  insertElement(data) {
+    if (this._count === this._capacity) {
+      this.expandHeap();
+    }
+
+    let index = this._count - 1;
+    while(index > 0 && data > this._heapArray[(index -1)/2]) {
+      this._heapArray[index] = this._heapArray[(index - 1)/2];
+      index = (index - 1)/2;
+    }
+    this._heapArray[index] = data;
+  }
+
+  printHeap() {
+    for (let i = 0; i < this._heapArray.length; i++) {
+      console.log(this._heapArray[i]);
+    }
+  }
+
+  deleteMin() {
+    
+  }
 }
 
 const heap = new Heap(10, 'max-heap');

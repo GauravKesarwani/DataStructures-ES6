@@ -346,33 +346,57 @@ class LinkedList {
     return linkList1;
   }
 
-  
+  reverseBlocksOfKNodes(k) {
+    let prev = null,
+      current =  this._head,
+      next;
+
+    let i = 0;
+    while (current && i < k) {
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+      i++;
+    }
+  }
+
+  // find n/kth element in LinkList
+  findNByKthElement() {
+    
+  }
+
+
 }
 
-const first1 = new Node(3);
-const second1 = new Node(5);
-const third1 = new Node(8);
-const fourth1 = new Node(5);
-const fifth1 = new Node(10);
-const sixth1 = new Node(2);
-const seventh1 = new Node(1);
+const first = new Node(1);
+const second = new Node(2);
+const third = new Node(3);
+const fourth = new Node(4);
+const fifth = new Node(5);
+const sixth = new Node(6);
+const seventh = new Node(7);
+const eighth = new Node(8);
+const ninth = new Node(9);
 
-first1._next = second1;
-second1._next = third1;
-third1._next = fourth1;
-fourth1._next = fifth1;
-fifth1._next = sixth1;
-sixth1._next = seventh1;
-
-
+first._next = second;
+second._next = third;
+third._next = fourth;
+fourth._next = fifth;
+fifth._next = sixth;
+sixth._next = seventh;
+seventh._next = eight;
+eighth._next = ninth;
 
 const head1 = first1;
 
 let linkedList1 = new LinkedList(head1);
 
-
 linkedList1.printList();
 
 let ll = linkedList1.partitionLinkList(5);
 ll.printList();
+
+ll.reverseBlocksOfKNodes();
+
 

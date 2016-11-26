@@ -1,1 +1,0 @@
-{"version":3,"sources":["BinaryToDecimal.ES6"],"names":[],"mappings":";;;;;;IAEM,e","file":"BinaryToDecimal-compiled.js","sourcesContent":["/* Decimal equivalent of a Binary Link List */\n\nclass BinaryToDecimal {\n  \n}\n\n"]}

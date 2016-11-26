@@ -32,12 +32,11 @@ class BinarySearchTree {
   }
 
   lowestCommonAncestor(root, nodeA, nodeB) {
-  
     if (root === null) {
       return null;
     }
     else if (nodeA < root._data && nodeB < root._data) {
-        //console.log(root);
+    //console.log(root);
       return this.lowestCommonAncestor(root._leftptr, nodeA, nodeB);
     }
     else if (nodeA > root._data && nodeB > root._data){
@@ -117,21 +116,43 @@ class BinarySearchTree {
     }
     return true;
   }
+
+  findMaximumElement(rootNode) {
+    let max = Number.MIN_VALUE;
+
+    if (rootNode !== null) {
+      let leftMax,
+        rightMax,
+        max;
+
+      leftMax = this.findMaximumElement(rootNode._leftptr);
+      rightMax = this.findMaximumElement(rootNode._rightptr);
+
+      max = (leftMax > rightMax) ? leftMax : rightMax;
+
+      if (rootNode._data > max) {
+        max = rootNode._data;
+      } 
+    }
+    return max;
+  }
+
+
 }
 
 
 const arr = [ 12, 15, 18, 19, 22, 24, 27, 30 ];
 
 const rootNode = new Node(1);
-rootNode._leftptr = new Node(2);
+rootNode._leftptr = new Node(20);
 rootNode._rightptr = new Node(3);
 rootNode._leftptr._leftptr = new Node(4);
-rootNode._leftptr._leftptr = new Node(5);
+rootNode._leftptr._rightptr = new Node(5);
 rootNode._rightptr._leftptr = new Node(6);
 rootNode._rightptr._rightptr = new Node(7);
 
 let binSearchTree = new BinarySearchTree(rootNode);
 
-console.log(binSearchTree.checkIfBalanced(rootNode));
+binSearchTree.searchElementInBinaryTree(5);
 
 

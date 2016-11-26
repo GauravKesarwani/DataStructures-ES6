@@ -1,5 +1,4 @@
 'use strict';
-
 class ArrayAlgorithms {
   constructor(inputArr) {
     this._inputArr = inputArr;
@@ -25,7 +24,7 @@ class ArrayAlgorithms {
       }
     }
     return this._outputArr;
-  };
+  }
 
   sumX(n) {
     // Brute force solution
@@ -39,7 +38,7 @@ class ArrayAlgorithms {
         }
       }
     }
-  };
+  }
 
   sumX2(n) {
     // Hash Map solution. Time complexity is O(n).
@@ -57,7 +56,7 @@ class ArrayAlgorithms {
       }
     }
     return false;
-  };
+  }
 
   majorityElement1() {
     let arrayLength = this._inputArr.length,
