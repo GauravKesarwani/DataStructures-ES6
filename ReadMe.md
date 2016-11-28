@@ -1,2 +1,28 @@
-// Go to leetcode and practice
-// Go to hackerrank and practice
+#Data Structures and Algorithms in JavaScript.
+
+```
+Data Structures and Algorithms is the course where we start our journey into programming and sound knowledge
+and fundamentals of this course are essential for any developer to be a successful Software Developer.
+```
+
+This repository is supposed to be comprehensive collection of data structures and algorithm questions.
+It would be helpful for developers who like to write code in JavaScript.
+
+Moreover, I have tried use npm libraries and tricks of javascript language as well while implementing 
+the algorithms. Comments are provided wherever required.
+
+This repository is Work in Progress & I update it from time to time.
+
+* Install
+
+```
+cd DataStructures-ES6
+npm install
+
+```
+
+* Run
+
+```
+npm start path\to\program
+```
