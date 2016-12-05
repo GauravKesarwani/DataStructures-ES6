@@ -1,4 +1,7 @@
 'use strict';
+
+var winston = require('winston');
+
 class ArrayAlgorithms {
   constructor(inputArr) {
     this._inputArr = inputArr;
@@ -82,8 +85,29 @@ class ArrayAlgorithms {
 
     return MAX;
   }
+
+  /* Find whether an element exists in the array such that number of smaller elements is equal to the number of greater elements. 
+     Space complexity = O(n)
+     Time complexity = O(n)
+  */
+
+  findMidPoint() {
+    let len = this._inputArr.length,
+      auxArray = [ ];
+    for (let index = 0; index < len; index++) {
+      if (!auxArray.includes(this._inputArr[index])) {
+        auxArray.push(this._inputArr[index]);
+      }
+    }
+
+    if (auxArray.length % 2 === 0) {
+      winston.log('info', 'Equal point does not exist...');
+      return -1;
+    }
+    return auxArray[Math.floor(auxArray.length / 2)];
+  }
 }
 
-let inputArr = [13, 3, 9, 3, 8, 11, 17];
+let inputArr = [1, 2, 2, 3, 3, 3, 4];
 let rm = new ArrayAlgorithms(inputArr);
-console.log(rm.majorityElement1(inputArr));
+winston.log('info', rm.findMidPoint());
