@@ -3,6 +3,9 @@
 /* Strings in JavaScript are immutable. They should be modified using string methods or first should be converted 
   into string array. 
 */
+
+const winston = require('winston');
+
 class StringAlgorithms {
   constructor() {
     // do nothing
@@ -160,23 +163,59 @@ class StringAlgorithms {
         rightptr++;
       }
       if (leftptr !== "") {
-        mid = leftptr;
+        mid = leftptr; }
       else  if (rightptr !== "") {
         mid = rightptr;
       }
     }
 
-    if (str.localCompare(arr[mid]) > 0) {
-      this.sparseSearch(str, arr, mid + 1, r);
+      if (str.localCompare(arr[mid]) > 0) {
+        this.sparseSearch(str, arr, mid + 1, r);
+      }
+      else {
+        this.sparseSearch(str, arr, 0, mid - 1);
+      }
     }
-    else {
-      this.sparseSearch(str, arr, 0, mid - 1);
+  
+
+  /*  
+    Given a string, find if it is possible to convert it to a string that is repetition of substring with k characters. 
+    To convert, we can replace one substring of length k with k characters.
+  */
+  convertString(str, k) {
+    const hm = new Map();
+
+    if(str.length % k !== 0) {
+      return false;
     }
+
+    let i = 0;
+    while(i < str.length) {
+      const key = str.substring(i, i+k);
+      let value = 1;
+      if (hm.has(key)) {
+        let value = hm.get(key);
+        value++;
+        hm.set(key,value);
+      }
+      else {
+        hm.set(key, value);
+      }
+      i+=k;
+    }
+
+    //console.log(hm.entries())
+    if(hm.size === 2) {
+      let allValues = hm.values();
+      console.log(allValues);
+      if (allValues.next().value === 1 || allValues.next().value === 1) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 
-
 let stringAlgos = new StringAlgorithms();
-const arr = new Array(3);
-stringAlgos.generateAllNBitStrings(3);
+winston.info('Can String be converted ', stringAlgos.convertString('abcabcdefabcdef', 3));
 
