@@ -9,11 +9,14 @@
     "data-structures": "^1.4.2",
     "colors": "^1.1.2",
     "jsdoc": "^3.4.0",
-    "winston": "^2.3.0"
+    "winston": "^2.3.0",
+    "snyk": "^1.192.3"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "babel-node"
+    "start": "babel-node",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -24,5 +27,6 @@
   "bugs": {
     "url": "https://github.com/GauravKesarwani/DataStructures-ES6/issues"
   },
-  "homepage": "https://github.com/GauravKesarwani/DataStructures-ES6#readme"
+  "homepage": "https://github.com/GauravKesarwani/DataStructures-ES6#readme",
+  "snyk": true
 }
